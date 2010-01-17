@@ -113,8 +113,11 @@
             // difference for the rotation calculation.
             hour = hour > 12 ? hour - 12 : hour;
 
-            // 12 Hours a day on a 360° scale make 30° for every hour.
-            this._setRotation( this.hoursContainer, hour * 30 ); 
+            // 12 Hours a day on a 360° scale make 30° for every hour. We add
+            // 0.5 degrees per minute to allow for smooth adaption. On the
+            // other hand we only want 6 degree "jumps" because they represent
+            // the markers.
+            this._setRotation( this.hoursContainer, ( hour * 30 ) + minute * 0.5 - ( minute * 0.5 % 6 ) ); 
 
             // 60 minutes a hour on 360° scale make 6° for every minute.
             this._setRotation( this.minutesContainer, minute * 6 );
